@@ -1,0 +1,12 @@
+{
+  "name": "@jonyrepo/tsconfig",
+  "version": "1.0.0",
+  "private": true,
+  "exports": {
+    "./vue": "./vue.json",
+    "./base": "./index.json"
+  },
+  "devDependencies": {
+    "@jonyrepo/tsconfig": "workspace:*"
+  }
+}

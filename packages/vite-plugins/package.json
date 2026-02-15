@@ -1,0 +1,26 @@
+{
+  "name": "@jonyrepo/vite-plugins",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup index.ts --format esm --dts --clean",
+    "dev": "tsup index.ts --format esm --dts --watch",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "tsup": "^8.5.1",
+    "vite": "^6.0.0",
+    "vitest": "^4.0.18"
+  }
+}

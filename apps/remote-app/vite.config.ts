@@ -1,3 +1,4 @@
+// remote-app
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import federation from "@originjs/vite-plugin-federation";
@@ -13,12 +14,14 @@ export default defineConfig({
       name: "remote_app",
       filename: "remoteEntry.js",
       exposes: {
-        "./Widget": "./src/components/HelloWorld.vue",
+        "./Widget": "./src/components/Widget.vue",
       },
-      shared: ['vue']
+      shared: ["vue"],
     }),
   ],
   build: {
     target: "esnext",
+    minify: false,
+    cssCodeSplit: false,
   },
 });

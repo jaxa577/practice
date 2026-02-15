@@ -1,10 +1,16 @@
 {
-  "$schema": "https://turborepo.dev/schema.json",
+  "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**", "assets/**"],
+      "inputs": ["src/**", "index.ts", "jony-terser.ts", "vite.config.ts"]
+    },
+    "test": {
+      "dependsOn": ["build"],
+      "outputs": [],
+      "inputs": ["src/**", "*.test.ts", "*.test.tsx"]
     },
     "lint": {
       "dependsOn": ["^lint"]
@@ -14,8 +20,7 @@
     },
     "dev": {
       "cache": false,
-      "persistent": true,
-      "dependsOn": ["^build"]
+      "persistent": true
     }
   }
 }

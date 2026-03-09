@@ -20,7 +20,6 @@ const increment = () => {
 };
 
 onMounted(() => {
-  throw new Error("💥 Бум! Виджет сломался изнутри!");
   console.log("Remote Widget mounted into Host!");
 });
 </script>

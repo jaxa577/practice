@@ -1,16 +1,23 @@
 <script setup lang="ts">
 import { ref, onErrorCaptured } from "vue";
+import * as Sentry from "@sentry/vue";
 
+const props = defineProps<{ componentName?: string }>();
 const error = ref<Error | null>(null);
 
-// Хук ловит любые ошибки в дочерних компонентах (даже в удаленных!)
-onErrorCaptured((err) => {
-  console.error("Captured by JonyBoundary:", err);
+onErrorCaptured((err, instance, info) => {
   error.value = err;
-  return false; // Предотвращаем прокидывание ошибки выше
+
+  Sentry.captureException(err, {
+    extra: {
+      component: props.componentName || "Unknown Component",
+      info,
+    },
+  });
+
+  return false;
 });
 </script>
-
 <template>
   <div v-if="error" class="error-placeholder">
     <h3>Упс! Компонент временно недоступен</h3>

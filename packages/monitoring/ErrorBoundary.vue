@@ -5,7 +5,7 @@ import * as Sentry from "@sentry/vue";
 const props = defineProps<{ componentName?: string }>();
 const error = ref<Error | null>(null);
 
-onErrorCaptured((err, instance, info) => {
+onErrorCaptured((err, _instance, info) => {
   error.value = err;
 
   Sentry.captureException(err, {

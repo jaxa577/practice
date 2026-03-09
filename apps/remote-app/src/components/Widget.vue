@@ -1,107 +1,74 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 
-interface Props {
-  title?: string;
-  user?: string;
-}
+const trackingId = ref("TRK-98234-UZ");
+const status = ref<"loading" | "success" | "error">("loading");
+const cargoInfo = ref<{ location: string; eta: string } | null>(null);
 
-const props = withDefaults(defineProps<Props>(), {
-  title: "Remote Dashboard",
-  user: "Guest",
-});
+const fetchCargoData = async () => {
+  status.value = "loading";
+  try {
+    await new Promise((res) => setTimeout(res, 1500));
 
-const count = ref(0);
-const lastUpdated = ref(new Date().toLocaleTimeString());
+    if (Math.random() > 0.8) throw new Error("API Logistics Timeout");
 
-const increment = () => {
-  count.value++;
-  lastUpdated.value = new Date().toLocaleTimeString();
+    cargoInfo.value = {
+      location: "Tashkent Sorting Center",
+      eta: "2026-03-12",
+    };
+    status.value = "success";
+  } catch (e) {
+    status.value = "error";
+    throw e;
+  }
 };
 
-onMounted(() => {
-  console.log("Remote Widget mounted into Host!");
-});
+onMounted(fetchCargoData);
 </script>
 
 <template>
-  <div class="remote-widget">
-    <div class="widget-header">
-      <h3>{{ props.title }}</h3>
-      <span class="badge">Live</span>
+  <article class="cargo-widget" aria-live="polite">
+    <header>
+      <h3>Отслеживание груза: {{ trackingId }}</h3>
+    </header>
+
+    <div v-if="status === 'loading'" role="status">
+      <p>Синхронизация с сервером логистики...</p>
     </div>
 
-    <div class="widget-content">
-      <p>
-        Hello, <strong>{{ props.user }}</strong
-        >!
-      </p>
-      <div class="counter-section">
-        <span class="count">{{ count }}</span>
-        <button @click="increment" class="remote-btn">Add click</button>
+    <div v-else-if="status === 'success' && cargoInfo" class="cargo-details">
+      <div class="status-row">
+        <strong>Текущая локация:</strong> <span>{{ cargoInfo.location }}</span>
       </div>
-      <p class="timestamp">Last updated: {{ lastUpdated }}</p>
+      <div class="status-row">
+        <strong>Ожидаемое прибытие:</strong> <span>{{ cargoInfo.eta }}</span>
+      </div>
+      <button @click="fetchCargoData" aria-label="Обновить данные о грузе">
+        Обновить
+      </button>
     </div>
-  </div>
+  </article>
 </template>
 
 <style scoped>
-.remote-widget {
-  padding: 20px;
+.cargo-widget {
+  padding: 1.5rem;
   border-radius: 12px;
   background: #f8f9fa;
-  border: 2px solid #42b883;
+  border-left: 5px solid #007bff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  font-family: sans-serif;
-  max-width: 300px;
 }
-
-.widget-header {
+.status-row {
+  margin: 10px 0;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
 }
-
-.badge {
-  background: #42b883;
-  color: white;
-  font-size: 10px;
-  padding: 2px 8px;
-  border-radius: 10px;
-  text-transform: uppercase;
-}
-
-.counter-section {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin: 15px 0;
-}
-
-.count {
-  font-size: 24px;
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-.remote-btn {
-  background: #35495e;
+button {
+  background: #007bff;
   color: white;
   border: none;
   padding: 8px 16px;
   border-radius: 6px;
   cursor: pointer;
-  transition: transform 0.1s;
-}
-
-.remote-btn:active {
-  transform: scale(0.95);
-}
-
-.timestamp {
-  font-size: 11px;
-  color: #95a5a6;
-  margin: 0;
 }
 </style>

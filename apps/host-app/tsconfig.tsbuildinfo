@@ -1,1 +1,1 @@
-{"root":["./src/main.ts","./src/remotes.d.ts","./src/app.vue","./src/components/helloworld.vue","../remote-app/src/components/widget.vue"],"version":"5.9.3"}
+{"root":["./src/main.ts","./src/remotes.d.ts","./src/vite-env.d.ts","./src/app.vue","./src/components/brokencomponent.vue","./src/views/helloworld.vue","../remote-app/src/components/widget.vue"],"version":"5.9.3"}

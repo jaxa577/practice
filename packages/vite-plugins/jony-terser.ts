@@ -2,23 +2,33 @@ import type { Plugin } from "vite";
 import fs from "node:fs";
 import path from "node:path";
 
-export function jonyTerser(options = { dropConsole: true }): Plugin {
+export function jonyTerser(
+  options = { dropConsole: true, removeComments: true },
+): Plugin {
   return {
     name: "vite-plugin-jony-terser",
     apply: "build",
 
-    // Code optiomization
+    // 1. Обработка JS/TS/Vue кода
     transform(code, id) {
-      // Remove node_mpdules
-      if (/\.(js|ts|vue)$/.test(id) && !id.includes("node_modules")) {
+      // Игнорируем виртуальные модули и node_modules
+      const isVirtual = id.startsWith("\0") || id.includes("virtual:");
+      const isSourceFile =
+        /\.(js|ts|vue)$/.test(id) && !id.includes("node_modules");
+
+      if (isSourceFile && !isVirtual) {
         let transformed = code;
 
         if (options.dropConsole) {
-          // Del console.log
           transformed = transformed.replace(
             /console\.log\s*\([\s\S]*?\);?/g,
             "",
           );
+        }
+
+        if (options.removeComments) {
+          transformed = transformed.replace(/\/\*[\s\S]*?\*\//g, "");
+          transformed = transformed.replace(/(^|\s)\/\/.*/g, "$1");
         }
 
         transformed = transformed
@@ -30,7 +40,7 @@ export function jonyTerser(options = { dropConsole: true }): Plugin {
       }
     },
 
-    // Meata data injectioon
+    // 2. Инъекция в HTML
     transformIndexHtml(html) {
       const date = new Date().toISOString().split("T")[0];
       const time = new Date().toLocaleTimeString();

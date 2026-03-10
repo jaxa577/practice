@@ -17,5 +17,12 @@
   "packageManager": "pnpm@9.0.0",
   "engines": {
     "node": ">=18"
+  },
+  "pnpm": {
+    "overrides": {
+      "minimatch@>=9.0.0 <9.0.6": ">=9.0.6",
+      "rollup": ">=4.59.0",
+      "minimatch@>=9.0.0 <9.0.7": ">=9.0.7"
+    }
   }
 }

@@ -1,0 +1,16 @@
+{
+  "name": "@jonyrepo/auth",
+  "version": "0.0.1",
+  "main": "./index.ts",
+  "dependencies": {
+    "axios": "^1.13.6",
+    "jwt-decode": "^4.0.0"
+  },
+  "devDependencies": {
+    "@jonyrepo/tsconfig": "workspace:^",
+    "vue": "^3.5.30"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  }
+}

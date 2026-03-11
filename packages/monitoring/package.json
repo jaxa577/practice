@@ -5,6 +5,6 @@
   "main": "./index.ts",
   "dependencies": {
     "@sentry/vue": "^10.40.0",
-    "vue": "^3.0.0"
+    "vue": "^3.5.30"
   }
 }

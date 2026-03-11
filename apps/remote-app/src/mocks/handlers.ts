@@ -11,4 +11,18 @@ export const handlers = [
       updatedAt: new Date().toISOString(),
     });
   }),
+
+  http.post("https://api.loadboard.asia/api/v1/login", async ({ request }) => {
+    const { username } = (await request.json()) as any;
+
+    return HttpResponse.json({
+      token:
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJ1c2VybmFtZSI6IkpvbnkiLCJyb2xlcyI6WyJBZG1pbiIsICJEaXNwYXRjaGVyIl19.signature",
+      user: {
+        id: "1",
+        username: username || "Jony",
+        roles: ["Admin", "Dispatcher"],
+      },
+    });
+  }),
 ];

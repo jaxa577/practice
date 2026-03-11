@@ -9,7 +9,10 @@
     "resolveJsonModule": true,
     "jsx": "preserve",
     "jsxImportSource": "vue",
-
+    "paths": {
+      "@jonyrepo/i18n": ["packages/i18n/index.ts"],
+      "@jonyrepo/ui": ["packages/ui/index.ts"]
+    },
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,

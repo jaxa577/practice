@@ -1,0 +1,10 @@
+{
+  "extends": "@jonyrepo/tsconfig/base.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "types": ["node", "vite/client"],
+    "lib": ["ESNext", "DOM"]
+  },
+  "include": ["index.ts", "env.d.ts"]
+}

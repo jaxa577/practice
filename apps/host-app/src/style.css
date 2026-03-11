@@ -1,0 +1,52 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  outline: none;
+}
+body {
+  background: #fff;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  &:hover {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+button {
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+}
+section {
+  overflow: hidden;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+section {
+  position: relative;
+  z-index: 2;
+}
+.container {
+  max-width: 1340px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+@keyframes spinLoader {
+  to {
+    transform: rotate(360deg);
+  }
+}

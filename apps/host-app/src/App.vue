@@ -1,14 +1,5 @@
-<script setup lang="ts">
-import { onMounted } from "vue";
-import HelloWorld from "./views/HelloWorld.vue";
-
-onMounted(() => {
-  console.log("[Host] Это сообщение должно исчезнуть после билда!");
-});
-</script>
-
 <template>
-  <HelloWorld />
+  <main>
+    <router-view />
+  </main>
 </template>
-
-<style scoped></style>

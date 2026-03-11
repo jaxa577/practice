@@ -1,2 +1,3 @@
 import { JButton } from "./src/JButoon";
-export { JButton };
+import { JLanguageSwitcher } from "./src/JLanguageSwitcher";
+export { JButton, JLanguageSwitcher };

@@ -24,5 +24,9 @@
     "@vitejs/plugin-vue": "^5.0.0",
     "vite": "npm:rolldown-vite@latest",
     "vue-tsc": "^2.0.0"
+  },
+  "dependencies": {
+    "@jonyrepo/i18n": "workspace:^",
+    "vue-i18n": "^9.14.5"
   }
 }

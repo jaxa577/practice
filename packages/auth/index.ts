@@ -2,7 +2,6 @@ import { ref, computed } from "vue";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 
-// 1. Описываем структуру пользователя из твоего API
 export interface User {
   sub: string;
   email: string;
@@ -12,7 +11,6 @@ export interface User {
   rating: number;
 }
 
-// 2. Реактивное состояние
 const accessToken = ref<string | null>(localStorage.getItem("jony_at"));
 const refreshToken = ref<string | null>(localStorage.getItem("jony_rt"));
 
@@ -26,7 +24,9 @@ const user = computed<User | null>(() => {
 });
 
 export const authApi = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "https://api.loadboard.asia/api/v1",
+  baseURL:
+    (import.meta as any).env?.VITE_API_URL ||
+    "https://api.loadboard.asia/api/v1",
 });
 
 authApi.interceptors.request.use((config) => {

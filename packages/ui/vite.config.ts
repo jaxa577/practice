@@ -22,6 +22,8 @@ export default defineConfig({
       formats: ["es"],
     },
     rollupOptions: {
+
+      
       external: ["vue", "vue-i18n"],
       output: {
         globals: {

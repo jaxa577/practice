@@ -9,6 +9,7 @@ export interface User {
   role: "BROKER" | "DRIVER" | "ADMIN";
   iat: number;
   exp: number;
+  rating: number;
 }
 
 // 2. Реактивное состояние

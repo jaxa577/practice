@@ -37,7 +37,8 @@ const stats = computed(() => [
     <aside class="sidebar">
       <div class="logo">JL.</div>
       <nav>
-        <a href="#" class="active">Dashboard</a>
+        <router-link to="/"> Dashboard </router-link>
+        <router-link to="/chat"> Chat </router-link>
         <a href="#">My Loads</a>
         <a href="#">Payments</a>
         <a href="#">Settings</a>

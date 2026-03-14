@@ -12,7 +12,16 @@ const routes: RouteRecordRaw[] = [
     path: "/admin",
     name: "Admin",
     component: () => import("../views/AdminPanel.vue"),
-    meta: { requiresAuth: true, role: "Admin" },
+    meta: { requiresAuth: true, allowedRoles: ["Admin"] },
+  },
+  {
+    path: "/chat",
+    name: "Chat",
+    component: () => import("../views/Chat.vue"),
+    meta: {
+      requiresAuth: true,
+      allowedRoles: ["ADMIN", "BROKER", "DRIVER", "SHIPPER"],
+    },
   },
   {
     path: "/login",
@@ -28,15 +37,22 @@ const router = createRouter({
 
 // Guard
 router.beforeEach((to, _, next) => {
-  const { isAuthenticated, hasRole } = useAuth();
+  const { isAuthenticated, user } = useAuth();
 
   if (to.name === "Login" && isAuthenticated.value) {
     next({ name: "Dashboard" });
   } else if (to.meta.requiresAuth && !isAuthenticated.value) {
     next({ name: "Login" });
-  } else if (to.meta.role && !hasRole(to.meta.role as string)) {
-    alert("Access Denied! Your role is insufficient!");
-    next({ name: "Dashboard" });
+  } else if (to.meta.allowedRoles) {
+    const roles = to.meta.allowedRoles as string[];
+    const userRole = user.value?.role;
+
+    if (userRole && roles.includes(userRole)) {
+      next();
+    } else {
+      alert("Доступ запрещен! У вас недостаточно прав для этого раздела.");
+      next({ name: "Dashboard" });
+    }
   } else {
     next();
   }
